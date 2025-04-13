@@ -39,25 +39,7 @@ function JungleBridgeSim()
     param_struct.g = 9.8; % gravitational acceleration (m/s^2)
 
     %% compute the predicted bridge shape
-    % Run first gradient descent iteration
     [x_list,y_list] = generate_shape_prediction(param_struct);
-    % Run all other iterations
-    % for i = 2:5
-    %     % Create Previous Coordinates Variable
-    %     prev_coords_x = x_list(:, i - 1);
-    %     prev_coords_y = y_list(:, i - 1);
-    %     for n = 1:(param_struct.num_links-1)
-    %         prev_coords(2*n-1,1) = prev_coords_x(n+1);
-    %         prev_coords(2*n,1) = prev_coords_y(n+1);
-    %     end
-    %     % disp(x_list(:, i - 1))
-    %     % disp(y_list(:, i - 1))
-    %     % disp(prev_coords)
-    %     % disp('----------------')
-    %     [x_list(:, i),y_list(:, i)] = generate_shape_prediction_v2(param_struct, prev_coords);
-    % end
-    % disp(y_list)
-    % disp(y_list)
 
     %% generate a plot comparing the predicted and measured bridge shape
     figure()

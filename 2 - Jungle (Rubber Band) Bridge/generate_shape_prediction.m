@@ -32,13 +32,7 @@ function [x_list,y_list] = generate_shape_prediction(param_struct)
     xn = param_struct.rn(1);
     yn = param_struct.rn(2);
     x_guess = linspace(x0,xn,param_struct.num_links+1);
-    disp('-')
-    disp(x_guess)
-    disp('-')
     y_guess = linspace(y0,yn,param_struct.num_links+1);
-    disp('-')
-    disp(y_guess)
-    disp('-')
     coords_guess = zeros(2*(param_struct.num_links-1),1);
 
     for n = 1:(param_struct.num_links-1)
@@ -46,21 +40,10 @@ function [x_list,y_list] = generate_shape_prediction(param_struct)
         coords_guess(2*n,1) = y_guess(n+1);
     end
     
-
     %use gradient descent function to compute
     %the predicted vertex locations
     coords_sol = run_gradient_descent(f_cost,coords_guess,opt_params);
-    % coords_sol_y = zeros(5, 1);
-    % coords_sol_x = zeros(5, 1);
-    % for i = 1:5
-    %     coords_sol_y(i) = coords_sol(2*i);
-    %     coords_sol_x(i) = coords_sol(2*i - 1);
-    % end
-    % disp('-------')
-    % disp(coords_sol_y)
-    % disp('--')
-    % disp(coords_sol_x)
-    % disp('-------')
+    
     %unpack result and combine with r0 and rn from param_struct
     %to generate list of positions, x_list and y_list
     V_list = [param_struct.r0;coords_sol;param_struct.rn];
