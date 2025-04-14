@@ -11,13 +11,14 @@
 %OUTPUTS:
 %x_list = [x_0;x_1;...;x_n]: x coordinates of predicted vertex positions
 %y_list = [y_0;y_1;...;y_n]: x coordinates of predicted vertex positions
-function [x_list,y_list] = generate_shape_prediction(param_struct)
+%V_list_1: List of selected points made by gradient descent algorithm
+function [x_list,y_list,V_list_1] = generate_shape_prediction(param_struct)
     %specify optimization parameters
     opt_params = struct();
     opt_params.beta = 0.5;
     opt_params.gamma = 0.25;
     opt_params.max_iter = 1000;
-    opt_params.min_gradient = 1e-7;
+    opt_params.min_gradient = 1e-6;
 
     %use anonymous function syntax to define the cost func
     %define cost func as the total potential energy function
@@ -42,7 +43,7 @@ function [x_list,y_list] = generate_shape_prediction(param_struct)
     
     %use gradient descent function to compute
     %the predicted vertex locations
-    coords_sol = run_gradient_descent(f_cost,coords_guess,opt_params);
+    [coords_sol, V_list_1] = run_gradient_descent(f_cost,coords_guess,opt_params);
     
     %unpack result and combine with r0 and rn from param_struct
     %to generate list of positions, x_list and y_list

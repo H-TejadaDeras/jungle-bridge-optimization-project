@@ -13,7 +13,11 @@
 %params.min_gradient: termination condition for gradient descent; If ||grad(f)||<min_gradient, terminate program
 %OUTPUTS:
 %Vopt: The guess for the local minimum of V0
-function Vopt = run_gradient_descent(fun,V0,params)
+%V_list: List of selected points made by gradient descent algorithm
+function [Vopt, V_list] = run_gradient_descent(fun,V0,params)
+    % Variable Declarations
+    V_list = zeros(10, 1);
+
     %unpack params
     beta = params.beta;
     gamma = params.gamma;
@@ -47,6 +51,11 @@ function Vopt = run_gradient_descent(fun,V0,params)
         %evaluate gradient and function at new value of V
         G = approximate_gradient(fun,V);
         F = fun(V);
+
+        % Save every 100th iteration's points
+        if ismember(n, [1, 10, 20, 30, 40, 50, 100, 250, 500, 1000])
+            V_list = [V_list V];
+        end
 
         %increment our iteration counter
         n = n+1;
