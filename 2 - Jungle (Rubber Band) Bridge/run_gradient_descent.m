@@ -1,4 +1,5 @@
 %% Run Gradient Descent
+%% Return V_list value if at a certain iteration; save in above function
 %save in file named 'run_gradient_descent.m'
 %this function runs gradient descent to find the local minimum
 %of an input function given some initial guess
