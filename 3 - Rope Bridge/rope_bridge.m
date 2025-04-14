@@ -24,7 +24,7 @@ function rope_bridge()
     
     % Convert Natural Lengths from cm to m
     natural_lengths = natural_lengths ./ 100;
-    disp(natural_lengths)
+
     %% initialize the system parameters
     %which contains parameters describing behavior/measurements of bridge
     % param_struct.r0 = [x_0;y_0]: coordinates of leftmost vertex
@@ -44,22 +44,7 @@ function rope_bridge()
     param_struct.g = 9.8; % gravitational acceleration (m/s^2)
 
     %% compute the predicted bridge shape
-    % Run first gradient descent iteration
     [x_list,y_list] = generate_shape_prediction_fmincon(param_struct);
-    % disp(y_list)
-    % Run all other iterations
-    % for i = 2:5
-    %     % Create Previous Coordinates Variable
-    %     prev_coords_x = x_list(:, i - 1);
-    %     prev_coords_y = y_list(:, i - 1);
-    %     for n = 1:(param_struct.num_links-1)
-    %         prev_coords(2*n-1,1) = prev_coords_x(n+1);
-    %         prev_coords(2*n,1) = prev_coords_y(n+1);
-    %     end
-    %     [x_list(:, i),y_list(:, i)] = generate_shape_prediction_v2(param_struct, prev_coords);
-    % end
-    % disp(y_list)
-    % disp(y_list)
 
     %% generate a plot comparing the predicted and measured bridge shape
     figure()
@@ -68,16 +53,13 @@ function rope_bridge()
     plot(measured_coords(:, 1), measured_coords(:, 2), "k", DisplayName="Measured Bridge Shape")
     scatter(measured_coords(:, 1), measured_coords(:, 2), "ko", DisplayName="Measured Bridge Shape Points")
     
-    % Plot Gradient Descent Output
-    % disp(y_list)
-    plot(x_list(:, 1), y_list(:, 1), "r", DisplayName='Predicted Bridge Shape')
-    scatter(x_list(:, 1), y_list(:, 1), "ro", DisplayName="Predicted Bridge Shape Points")
-    % plot(x_list(:, 2), y_list(:, 2), "r", DisplayName='Predicted Bridge Shape')
-    % scatter(x_list(:, 2), y_list(:, 2), "ro", DisplayName="Predicted Bridge Shape Points")
+    % Plot fmincon Output
+    plot(x_list, y_list, "r", DisplayName='Predicted Bridge Shape')
+    scatter(x_list, y_list, "ro", DisplayName="Predicted Bridge Shape Points")
     
     % Legend and other things
     xlabel("x (m)")
     ylabel("y (m)")
     legend(Location="southoutside")
-    title("Predicted vs. Measured Jungle Bridge Shape")
+    title("Predicted vs. Measured Rope Bridge Shape")
 end

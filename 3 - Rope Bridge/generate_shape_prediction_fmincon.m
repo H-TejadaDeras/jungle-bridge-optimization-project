@@ -21,7 +21,6 @@ function [x_list,y_list] = generate_shape_prediction_fmincon(param_struct)
     x_guess = linspace(x0,xn,param_struct.num_links+1);
     % y_guess = linspace(y0,yn,param_struct.num_links+1);
     y_guess = [-0.001, -0.001, -0.001, -0.001, -0.001, -0.001, -0.001];
-    disp(y_guess)
 
     coords_guess = zeros(2*(param_struct.num_links-1),1);
     for n = 1:(param_struct.num_links-1)

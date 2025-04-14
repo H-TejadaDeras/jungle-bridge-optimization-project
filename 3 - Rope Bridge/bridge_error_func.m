@@ -25,7 +25,6 @@ function [e_vec,dummy] = bridge_error_func(coords,param_struct)
     %iterate through each rubber band link
     for i = 1:param_struct.num_links
         %extract the ith segment length
-        % class(param_struct.l0_list)
         l_max = param_struct.l0_list;
 
         %extract the coordinates of the string ends
