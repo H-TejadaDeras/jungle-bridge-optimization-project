@@ -25,15 +25,15 @@ function [e_vec,dummy] = bridge_error_func(coords,param_struct)
     %iterate through each rubber band link
     for i = 1:param_struct.num_links
         %extract the ith segment length
-        l_max = param_struct.l0_list;
+        l_max = param_struct.l0_list(i);
 
         %extract the coordinates of the string ends
-        xA = coords(2 * (i + 1) - 1);
-        yA = coords(2 * (i + 1));
-        xB = coords(2 * i - 1);
-        yB = coords(2 * i);
+        xA = coords(2 * i - 1);
+        yA = coords(2 * i);
+        xB = coords(2 * i + 1);
+        yB = coords(2 * i + 2);
 
         %evaluate the ith distance constraint
-        e_vec(i) = single_string_error_func(xA,yA,xB,yB,l_max(i));
+        e_vec(i) = single_string_error_func(xA,yA,xB,yB,l_max);
     end
 end

@@ -9,5 +9,5 @@
 % e_len>0 when constraint is violated
 function e_len = single_string_error_func(xA,yA,xB,yB,l_max)
     % Calculate Deviation from Constraint
-    e_len = sqrt((xB - xA)^2 + (yB - yA)^2) - l_max;
+    e_len = (sqrt((xB - xA)^2 + (yB - yA)^2)) - l_max;
 end

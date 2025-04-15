@@ -21,7 +21,6 @@ function rope_bridge()
 
     % Save Natural Lengths
     natural_lengths = table2array(data(1:6, 9))';
-    
     % Convert Natural Lengths from cm to m
     natural_lengths = natural_lengths ./ 100;
 
@@ -38,7 +37,7 @@ function rope_bridge()
     param_struct.r0 = measured_coords(1, :)'; % Transposed so it is saved as a column vector; divided by 100 so it is in m
     param_struct.rn = measured_coords(7, :)'; % Transposed so it is saved as a column vector; divided by 100 so it is in m
     param_struct.num_links = size(measured_coords, 1) - 1;
-    param_struct.k_list = [1e10, 1e10, 1e10, 1e10, 1e10, 1e10]; % stiffnesses (N/m)
+    param_struct.k_list = NaN; % stiffnesses (N/m)
     param_struct.l0_list = natural_lengths; % natural lengths (meters)
     param_struct.m_list = mass; % mass list (kg)
     param_struct.g = 9.8; % gravitational acceleration (m/s^2)

@@ -18,16 +18,18 @@ function [x_list,y_list] = generate_shape_prediction_fmincon(param_struct)
     y0 = param_struct.r0(2);
     xn = param_struct.rn(1);
     yn = param_struct.rn(2);
-    x_guess = linspace(x0,xn,param_struct.num_links+1);
+    % x_guess = linspace(x0,xn,param_struct.num_links+1);
     % y_guess = linspace(y0,yn,param_struct.num_links+1);
-    y_guess = [-0.001, -0.001, -0.001, -0.001, -0.001, -0.001, -0.001];
-
-    coords_guess = zeros(2*(param_struct.num_links-1),1);
-    for n = 1:(param_struct.num_links-1)
-        coords_guess(2*n-1,1) = x_guess(n+1);
-        coords_guess(2*n,1) = y_guess(n+1);
-    end
-
+    % % y_guess = [-0.001, -0.001, -0.001, -0.001, -0.001, -0.001, -0.001];
+    % 
+    % coords_guess = zeros(2*(param_struct.num_links-1),1);
+    % for n = 1:(param_struct.num_links-1)
+    %     coords_guess(2*n-1,1) = x_guess(n+1);
+    %     coords_guess(2*n,1) = y_guess(n+1);
+    % end
+    disp('---')
+    coords_guess = [0.1530; -.1; 0.3060; -.15; 0.4590; -.15; 0.6120; -.1; 0.7650; -.05]
+    disp('---')
     %use anonymous function syntax to define the cost func
     %define cost func as the gravitational potential energy function
     %using the current values in param_struct
@@ -39,6 +41,7 @@ function [x_list,y_list] = generate_shape_prediction_fmincon(param_struct)
     f_cstr = @(V_in) bridge_error_func(V_in,param_struct);
 
     %use fmincon to compute the predicted vertex locations
+    % options = optimoptions('fmincon','Display','iter');
     coords_sol = fmincon(f_cost, coords_guess, [], [], [], [], [], [], f_cstr);
 
     %unpack result and combine with r0 and rn from param_struct
